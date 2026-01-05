@@ -14,8 +14,8 @@ class SentimentAnalyser:
       result = self.model(text[:512])[0]  
       label, score = result['label'], result['score']
 
-      print("Label:", label);
-      print("Score:", score);
+      print("[MODEL]: Label:", label, flush=True);
+      print("[MODEL]: Score:", score, flush=True);
       return label, score
     
     except Exception as e:

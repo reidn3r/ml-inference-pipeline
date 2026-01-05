@@ -14,6 +14,7 @@ def add(
   inference_time: float,
   ) -> InferenceEntity:
     
+    print(f'[REPOSITORY]: Writing to disk', flush=True)
     model_entity = model_repository.find_or_create(session, model_name)
     input_entity: InputEntity = input_repository.add(session, req_id, input_content)
 
