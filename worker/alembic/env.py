@@ -9,10 +9,17 @@ from src.database.models.base_model import Base
 from src.database.models.input_entity import InputEntity
 from src.database.models.inference_entity import InferenceEntity
 from src.database.models.model_entity import ModelEntity
+from config.environment import environment
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
+
+config.set_main_option(
+    "sqlalchemy.url",
+    environment["DATABASE_URL"]
+)
+
 
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.
