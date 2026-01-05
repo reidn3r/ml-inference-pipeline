@@ -10,5 +10,5 @@ def amqp_connect(callback) -> None :
     queue="inference.request",
     on_message_callback=callback)
 
-  print("[AMQP]: RabbitMQ connected")
+  print("[AMQP]: RabbitMQ connected", flush=True)
   channel.start_consuming()
