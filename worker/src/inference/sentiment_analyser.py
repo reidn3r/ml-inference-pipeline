@@ -7,7 +7,6 @@ class SentimentAnalyser:
     self.model = pipeline(
       "sentiment-analysis",
       model=self.name,
-      cache_dir="./models"
     )
 
   

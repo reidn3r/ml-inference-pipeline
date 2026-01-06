@@ -1,8 +1,8 @@
-from sqlalchemy.orm import Session
+from sqlalchemy.ext.asyncio import AsyncSession
 from src.database.models.input_entity import InputEntity
 
-def add(
-  session: Session,
+async def add(
+  session: AsyncSession,
   req_id: str,
   content: str,
   ) -> InputEntity:
@@ -12,6 +12,6 @@ def add(
   )
 
   session.add(input_record)
-  session.commit()
+  await session.commit()
 
   return input_record

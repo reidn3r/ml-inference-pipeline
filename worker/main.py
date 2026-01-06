@@ -1,7 +1,8 @@
+import asyncio
 from src.bootstrap import bootstrap
 
 def main():
-  bootstrap()
+  asyncio.run(bootstrap())
 
 if __name__ == "__main__":
   main()
