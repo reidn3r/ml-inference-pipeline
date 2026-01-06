@@ -65,4 +65,4 @@ jobs:
           context: ./api
           file: ./api/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/ml-api:${{ steps.version.outputs.version }}
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/ml-inference-api:${{ steps.version.outputs.version }}
