@@ -27,9 +27,11 @@ jobs:
         with:
           node-version: 20
       - name: Install dependencies
+        working-directory: api
         run: npm i
-
+        
       - name: Run Semantic Release
+        working-directory: api
         id: semantic
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
