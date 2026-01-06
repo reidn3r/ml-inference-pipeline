@@ -21,4 +21,4 @@ class SentimentAnalyser:
       return label, score
     
     except Exception as e:
-      print(e)
+      print(e, flush=True)
