@@ -1,0 +1,26 @@
+name: "api-continuous-integration"
+
+on: 
+  push:
+    paths:
+      - 'api/**'
+  pull_request:
+    paths:
+      - 'api/**'
+
+jobs:
+  continuous-integration:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Node.js Setup
+        uses: actions/setup-node@v6
+        with:
+          node-version: 20
+  
+      - name: Install, test and build
+        working-directory: api
+        run: | 
+          npm install
+          npm run build
