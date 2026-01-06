@@ -2,12 +2,14 @@ from transformers import pipeline
 
 class SentimentAnalyser:
   def __init__(self):      
+    self.name = "nlptown/bert-base-multilingual-uncased-sentiment"
+    
     self.model = pipeline(
       "sentiment-analysis",
-      model="nlptown/bert-base-multilingual-uncased-sentiment",
+      model=self.name,
+      cache_dir="./models"
     )
 
-    self.name = "nlptown/bert-base-multilingual-uncased-sentiment"
   
   def run(self, text: str):
     try:
