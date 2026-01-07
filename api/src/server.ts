@@ -8,7 +8,8 @@ app.listen({
   port: Number(PORT),
   host: HOST
 })
-  .then(() => {
-    console.log("[API]: Available")
-    console.log(`[API]: ${PORT}`)
-  })
+.then(() => {
+  console.log("[API]: Available")
+  console.log(`[API]: PORT ${PORT}`)
+  console.log(`[API]: HOST ${HOST}`)
+})
