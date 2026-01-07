@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-deployment
+  labels:
+    app: api
+    tier: app
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:      
+      app: api
+      tier: app
+    
+  template:
+    metadata:
+      labels:        
+        app: api
+        tier: app
+    spec:
+      containers:
+        - name: api-container
+          image: reidn3r/ml-inference-api:v1.2.1
+          envFrom:
+            - secretRef:
+                name: api-environment
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 3
+            periodSeconds: 10
+
+          ports:
+            - containerPort: 3030

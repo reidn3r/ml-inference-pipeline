@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: worker-deployment
+  labels:
+    app: worker
+    tier: app
+
+spec:
+  replicas: 2
+  selector:
+    matchLabels:      
+      app: worker
+      tier: app
+    
+  template:
+    metadata:
+      labels:        
+        app: worker
+        tier: app
+    spec:
+      containers:
+        - name: worker-container
+          image: reidn3r/ml-inference-worker:latest
+          imagePullPolicy: Always
+          envFrom:
+            - secretRef:
+                name: worker-environment
+          ports:
+            - containerPort: 3031

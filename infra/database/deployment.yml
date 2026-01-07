@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db-deployment
+  labels:
+    app: postgresql
+    tier: database
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:      
+      app: postgresql
+      tier: database
+    
+  template:
+    metadata:
+      labels:        
+        app: postgresql
+        tier: database
+    spec:
+      containers:
+        - name: postgresql-container
+          image: postgres:alpine
+          envFrom:
+            - secretRef:
+                name: db-environment
+          ports:
+            - containerPort: 5432
