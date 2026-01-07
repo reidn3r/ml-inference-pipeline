@@ -15,4 +15,4 @@ RUN npm install --omit=dev
 
 EXPOSE 3030
 
-CMD ["node", "./dist/src/server.ts"]
+CMD ["node", "./dist/src/server.js"]
