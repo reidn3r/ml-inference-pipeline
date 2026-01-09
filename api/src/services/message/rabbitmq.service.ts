@@ -1,13 +1,17 @@
-import { injectable } from "inversify";
+import { inject, injectable } from "inversify";
 import Connection, { Publisher } from "rabbitmq-client";
 import { InferenceRequestMessage } from "../../interfaces/inference.schema";
+import { TYPES } from "../../di/tokens";
+import { FastifyBaseLogger } from "fastify";
 
 @injectable()
 export class MessagingService {
   private conn: Connection;
   private publisher: Publisher;
 
-  constructor(){
+  constructor(
+    @inject(TYPES.Logger) private logger: FastifyBaseLogger
+  ){
     this.publisher = this.connect()
   }
 
@@ -27,11 +31,11 @@ export class MessagingService {
       const client: Connection = new Connection(process.env.RABBITMQ_URL);
 
       client.on('error', (err) => {
-        console.log(`[RABBITMQ]: Erro: ${err}.`)
+        this.logger.error(`[${this.constructor.name}] RABBITMQ - Erro: ${err}.`)
       })
 
       client.on('connection', () => {
-        console.log("[RABBITMQ]: Conectado.")
+        this.logger.info(`[${this.constructor.name}] RABBITMQ: Conectado.`)
       })
 
       this.conn = client;
@@ -43,7 +47,9 @@ export class MessagingService {
       return publisher;
     
     } catch (error) {
-      throw new Error("Erro ao conectar com RabbitMQ")
+      const msg: string = `[${this.constructor.name}] Erro ao conectar com RabbitMQ`;
+      this.logger.fatal({error}, msg);
+      throw new Error(msg)
     }
   }
 }

@@ -4,8 +4,7 @@ import { serializerCompiler, validatorCompiler } from "fastify-type-provider-zod
 import { InferenceController } from "./routes/inference.controller";
 import { HealthCheckController } from "./routes/health.controller";
 
-export const app = Fastify()
-
+export const app = Fastify({ logger: true })
 //Zod
 app.setValidatorCompiler(validatorCompiler);
 app.setSerializerCompiler(serializerCompiler);

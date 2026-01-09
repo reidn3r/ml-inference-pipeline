@@ -1,4 +1,5 @@
 export const TYPES = {
-  InferenceService: Symbol("InferenceService"),
-  MessageBrokerService: Symbol("InferenceHttpClientService"),
-};
+  Logger: Symbol.for('Logger'),
+  InferenceService: Symbol.for('InferenceService'),
+  MessageBrokerService: Symbol.for('MessageBrokerService')
+}

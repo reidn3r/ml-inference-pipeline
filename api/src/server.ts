@@ -9,7 +9,5 @@ app.listen({
   host: HOST
 })
 .then(() => {
-  console.log("[API]: Available")
-  console.log(`[API]: PORT ${PORT}`)
-  console.log(`[API]: HOST ${HOST}`)
+  app.log.info(`Server listening on ${HOST}:${PORT}`)
 })
