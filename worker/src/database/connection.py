@@ -1,11 +1,12 @@
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncEngine
+from config.logger import logger
 
 def database_create_engine(url: str) -> AsyncEngine:
-  print("[DB]: Creating engine", flush=True)
+  logger.info("DB Creating engine")
   engine = create_async_engine(
     url=url,
     echo=True,
     pool_size=10
   )
-  print("[DB]: PostgreSQL connected", flush=True)
+  logger.info("PostgreSQL connected")
   return engine

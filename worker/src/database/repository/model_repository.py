@@ -6,9 +6,7 @@ async def find_or_create(
   session: AsyncSession,
   model: str
 ) -> ModelEntity:
-
   record = select(ModelEntity).where(ModelEntity.name == model)
-
   result = await session.execute(record)
   instance = result.scalar_one_or_none()
 

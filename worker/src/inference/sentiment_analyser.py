@@ -1,4 +1,5 @@
 from transformers import pipeline
+from config.logger import logger
 
 class SentimentAnalyser:
   def __init__(self):      
@@ -8,16 +9,15 @@ class SentimentAnalyser:
       "sentiment-analysis",
       model=self.name,
     )
-
   
   def run(self, text: str):
     try:
       result = self.model(text[:512])[0]  
       label, score = result['label'], result['score']
 
-      print("[MODEL]: Label:", label, flush=True);
-      print("[MODEL]: Score:", score, flush=True);
+      logger.info(f"Inferece Label: {label}",);
+      logger.info(f"Inferece Score: {score}",);
       return label, score
     
     except Exception as e:
-      print(e, flush=True)
+      logger.error(f'Error: {e}')

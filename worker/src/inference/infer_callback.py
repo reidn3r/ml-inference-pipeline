@@ -6,15 +6,16 @@ from src.database.repository import inference_repository
 from src.inference.sentiment_analyser import SentimentAnalyser
 from src.abstract.factory.session_factory import async_session_factory
 import asyncio
+from config.logger import logger
 
 async def callback(
-    engine: AsyncEngine,
-    model: SentimentAnalyser,
-    message: AbstractIncomingMessage
+  engine: AsyncEngine,
+  model: SentimentAnalyser,
+  message: AbstractIncomingMessage
   ):
 
   payload = json.loads(message.body.decode())
-  print(f"message: {payload}", flush=True)
+  logger.info(f'message: {payload}')
 
   start = time.time()
   loop = asyncio.get_running_loop()

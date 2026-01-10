@@ -5,6 +5,7 @@ from src.database.models.input_entity import InputEntity
 from src.database.models.model_entity import ModelEntity
 import src.database.repository.input_repository as input_repository
 import src.database.repository.model_repository as model_repository
+from config.logger import logger
 
 async def add(
   session: AsyncSession,
@@ -16,7 +17,7 @@ async def add(
   inference_time: float,
   ) -> InferenceEntity:
     
-  print(f'[REPOSITORY]: Writing to disk', flush=True)
+  logger.info(f'Writing to disk')
   model_entity: ModelEntity = await model_repository.find_or_create(session, model_name)
   input_entity: InputEntity = await input_repository.add(session, req_id, input_content)
 
@@ -30,6 +31,7 @@ async def add(
     .withInferenceTimeMs(inference_time) \
     .build()
     
+  logger.info(f'New database row: {str(record)}')
   session.add(record)
   await session.commit()
 
