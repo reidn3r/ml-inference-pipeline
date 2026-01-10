@@ -21,9 +21,19 @@ spec:
     spec:
       containers:
         - name: postgresql-container
-          image: postgres:alpine
+          image: postgres:15-alpine
+          env:
+            - name: PGDATA
+              value: /var/lib/postgresql/data/pgdata
           envFrom:
             - secretRef:
                 name: db-environment
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: pgsql-pv
           ports:
             - containerPort: 5432
+      volumes:
+        - name: pgsql-pv
+          persistentVolumeClaim:
+            claimName: pgsql-pvc
