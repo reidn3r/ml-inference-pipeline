@@ -8,5 +8,4 @@ export const InferenceRequestSchema = {
 };
 
 export type InferenceRequestType = z.infer<typeof InferenceRequestSchema.body>;
-
 export type InferenceRequestMessage = InferenceRequestType & { id: string };

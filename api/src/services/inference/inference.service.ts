@@ -1,5 +1,4 @@
 import { inject, injectable } from "inversify";
-import { randomUUID } from "node:crypto";
 import { TYPES } from "../../di/tokens";
 import { MessagingService } from "../message/rabbitmq.service";
 import { InferenceRequestType } from "../../interfaces/inference.schema"
@@ -14,12 +13,11 @@ export class InferenceService {
     private logger: FastifyBaseLogger
   ){}
 
-  async run(request: InferenceRequestType){
-    const requestId = randomUUID()
-    const payload = { ...request, id: requestId };
+  async run(request: InferenceRequestType, id: string){
+    const payload = { ...request, id };
     this.logger.info(`${this.constructor.name} publishing: ${JSON.stringify(payload)}`)
 
     await this.msgBrokerService.publish(payload)
-    return { id: requestId, requested: true, timestamp: Date.now() }
+    return { requested: true, timestamp: Date.now() }
   }
 }

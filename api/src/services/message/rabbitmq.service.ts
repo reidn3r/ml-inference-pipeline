@@ -31,11 +31,11 @@ export class MessagingService {
       const client: Connection = new Connection(process.env.RABBITMQ_URL);
 
       client.on('error', (err) => {
-        this.logger.error(`[${this.constructor.name}] RABBITMQ - Erro: ${err}.`)
+        this.logger.error(`[${this.constructor.name}] RABBITMQ - Error: ${err}.`)
       })
 
       client.on('connection', () => {
-        this.logger.info(`[${this.constructor.name}] RABBITMQ: Conectado.`)
+        this.logger.info(`[${this.constructor.name}] RABBITMQ: Connected.`)
       })
 
       this.conn = client;
@@ -47,7 +47,7 @@ export class MessagingService {
       return publisher;
     
     } catch (error) {
-      const msg: string = `[${this.constructor.name}] Erro ao conectar com RabbitMQ`;
+      const msg: string = `[${this.constructor.name}] Erro while conecting to RabbitMQ`;
       this.logger.fatal({error}, msg);
       throw new Error(msg)
     }

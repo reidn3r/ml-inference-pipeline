@@ -8,7 +8,12 @@ export const InferenceController = (app: FastifyInstance) => {
   const service = container.get<InferenceService>(TYPES.InferenceService);
 
   app.post("/", { schema: InferenceRequestSchema }, async (request, reply) => {
-    const response = await service.run(request.body as InferenceRequestType);
+    request.log.info(`Inference: ${request.id}`)
+
+    const response = await service.run(
+      request.body as InferenceRequestType,
+      request.id
+    );
     return reply.status(201).send({ response })
   })
 }
