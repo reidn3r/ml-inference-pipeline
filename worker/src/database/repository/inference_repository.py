@@ -31,7 +31,7 @@ async def add(
     .withInferenceTimeMs(inference_time) \
     .build()
     
-  logger.info(f'New database row: {str(record)}')
+  logger.info(f'New database row: {repr(record)}')
   session.add(record)
   await session.commit()
 

@@ -47,17 +47,3 @@ class InferenceEntityBuilder:
       prediction_score=self.prediction_score,
       inference_time_ms=self.inference_time_ms,
     )
-  
-  def __repr__(self):
-    return (
-        f"InferenceEntity("
-        f"id={self.id}, "
-        f"model_id={self.model_id}, "
-        f"input_id={self.input_id}, "
-        f"request_id='{self.request_id}', "
-        f"prediction_content='{self.prediction_content}', "
-        f"prediction_score={self.prediction_score}, "
-        f"inference_time_ms={self.inference_time_ms}"
-        f")"
-    )
-
