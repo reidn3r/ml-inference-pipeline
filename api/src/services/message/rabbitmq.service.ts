@@ -21,7 +21,6 @@ export class MessagingService {
       routingKey: process.env.MQ_ROUTING_KEY
     },{
       id: data.id,
-      model: data.model,
       content: data.text
     })
   }
