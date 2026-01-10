@@ -31,6 +31,7 @@ async def add(
     .withInferenceTimeMs(inference_time) \
     .build()
     
+  logger.info(f'Inference Id: {repr(req_id)} Success')
   logger.info(f'New database row: {repr(record)}')
   session.add(record)
   await session.commit()

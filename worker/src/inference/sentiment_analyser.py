@@ -10,8 +10,9 @@ class SentimentAnalyser:
       model=self.name,
     )
   
-  def run(self, text: str):
+  def run(self, text: str, id: str):
     try:
+      logger.info(f'Inference id: {id}')
       result = self.model(text[:512])[0]  
       label, score = result['label'], result['score']
 

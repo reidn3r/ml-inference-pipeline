@@ -22,7 +22,8 @@ async def callback(
   label, score = await loop.run_in_executor(
     None,
     model.run,
-    payload["content"]
+    payload["content"],
+    payload["id"],
   )
 
   end = time.time()
