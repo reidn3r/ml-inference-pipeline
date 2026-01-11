@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: api-container
-          image: reidn3r/ml-inference-api:v1.2.1
+          image: reidn3r/ml-inference-api:v1.4.0
           envFrom:
             - secretRef:
                 name: api-environment

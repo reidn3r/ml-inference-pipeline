@@ -12,5 +12,5 @@ spec:
           command: ["alembic", "upgrade", "head"]
           env:
             - name: DATABASE_URL
-              value: "postgresql+psycopg://root:root@postgres:5432/app_db"
+              value: "postgresql+psycopg://root:root@pgsql-0.pgsql-headless:5432/app_db"
       restartPolicy: OnFailure
