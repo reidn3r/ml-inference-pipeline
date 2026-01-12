@@ -7,7 +7,7 @@ metadata:
     tier: app
 
 spec:
-  replicas: 2
+  replicas: 3
   selector:
     matchLabels:      
       app: worker
@@ -26,5 +26,13 @@ spec:
           envFrom:
             - secretRef:
                 name: worker-environment
+          resources: #min. garantido
+            requests:
+              cpu: "0.2"    
+              memory: "300Mi" 
+
+            limits: #max. permitido
+              cpu: "1"    
+              memory: "1Gi" 
           ports:
             - containerPort: 3031
