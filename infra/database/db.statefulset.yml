@@ -34,6 +34,18 @@ spec:
         - name: PGDATA
           value: /var/lib/postgresql/data/pgdata
 
+        livenessProbe:
+          exec:
+            command:
+            - /bin/sh
+            - -c
+            - pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+          successThreshold: 1
+
         volumeMounts:
         - name: pgdata
           mountPath: /var/lib/postgresql/data
