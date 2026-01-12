@@ -13,7 +13,7 @@ O sistema é composto por:
 * **Workers de Inferência**: Serviços responsáveis por consumir mensagens, executar inferências em modelos de linguagem e persistir os resultados.
 * **Banco de Dados PostgreSQL**: Armazenamento relacional dos resultados de inferências.
 
-Todo o ecossistema é provisionado e operado em um **cluster Kubernetes (Minikube)**
+Todo o ecossistema é provisionado e operado em um **cluster Kubernetes (Minikube)**. [Clique para ver os manifestos.](/infra/)
 
 ![cluster app. architecture](/assets/k8s.excalidraw.png)
 
