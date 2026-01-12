@@ -20,23 +20,23 @@ Todo o ecossistema é provisionado e operado em um **cluster Kubernetes (Minikub
 
 ## Infraestrutura e Orquestração (Kubernetes)
 
-A infraestrutura do projeto é declarativa e provisionada via Kubernetes, utilizando manifestos YAML. Cada recurso possui uma responsabilidade clara dentro do cluster.
+A infraestrutura do projeto é declarativa e provisionada via Kubernetes, [utilizando manifestos YAML](/infra/). Cada recurso possui uma responsabilidade clara dentro do cluster.
 
-### Deployments
+### Deployments e StatefulSets
 
-Os arquivos `deployment.yml` definem o ciclo de vida dos principais componentes:
+Os manifestos definem o ciclo de vida dos principais componentes do sistema:
 
-* **API**: Executada como um Deployment e associada a um service.
-* **Workers**: Conjunto de réplicas que consomem mensagens da fila, podendo ser escaladas de forma independente da API.
-* **RabbitMQ**: Broker de mensagens configurado para operar de forma estável dentro do cluster.
-* **PostgreSQL**: Banco de dados relacional executando em um pod dedicado.
+* **API**: Executada como um Deployment, responsável por receber requisições HTTP e publicar mensagens no broker.
+* **Workers**: Executados como um Deployment com réplicas, consumindo mensagens do RabbitMQ e realizando inferências de forma assíncrona.
+* **RabbitMQ**: Executado como um StatefulSet, garantindo identidade estável do broker e persistência das mensagens.
+* **PostgreSQL**: Executado como um StatefulSet com PersistentVolumeClaim, assegurando durabilidade dos dados de inferência.
 
 ### Services
 
 Os arquivos `service.yml` expõem os componentes internamente no cluster e, quando necessário, externamente:
 
-* A **API** é exposta via **NodePort**, permitindo acesso externo para testes e integração (ex.: Postman ou browser).
-* Workers, RabbitMQ e PostgreSQL são expostos como serviços internos, garantindo comunicação segura entre os pods.
+* A **API** é exposta via **NodePort**, permitindo acesso externo.
+* Workers, RabbitMQ e PostgreSQL são expostos como serviços internos.
 
 ### ConfigMaps
 
@@ -53,11 +53,11 @@ As variáveis sensíveis (credenciais, URLs, tokens) são definidas originalment
 * **PersistentVolume (PV)**: Define o recurso físico ou lógico de armazenamento.
 * **PersistentVolumeClaim (PVC)**: Vincula o PostgreSQL a esse volume.
 
-Tem como finalidade assegurar que os dados do banco não sejam perdidos em reinicializações ou recriações de pods.
+Tem como finalidade garantir que os dados do banco não sejam perdidos em reinicializações ou recriações de pods.
 
 ### Job de Migração de Banco de Dados
 
-O arquivo `migration-job.yml` define um Job responsável por executar as migrações de banco de dados utilizando **Alembic**:
+O arquivo `migration-job.yml` define um Job responsável por executar as migrações de banco de dados utilizando **Alembic**
 
 
 ## Ciclo de Vida de Desenvolvimento (CI/CD)
